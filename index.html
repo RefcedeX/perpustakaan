@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BACA GEH! - Perpustakaan Digital</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- SweetAlert2 Modern UI Notifications -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+    <!-- ==================== LOGIN & REGISTER PAGE ==================== -->
+    <div id="loginPage" class="page active">
+        <div class="login-container">
+            <div class="login-left">
+                <div class="login-content">
+                    <div class="logo">
+                        <i class="fas fa-book-open"></i>
+                        <h1>BACA GEH!</h1>
+                    </div>
+                    <p class="tagline">"Membaca adalah jendela dunia & pengetahuan masyarakat"</p>
+
+                    <!-- Form Login -->
+                    <form id="loginForm">
+                        <div class="input-group">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="username" placeholder="Username" required autofocus>
+                        </div>
+                        <div class="input-group">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="password" placeholder="Kata Sandi" required>
+                        </div>
+                        <button type="submit" class="btn-login">
+                            <i class="fas fa-sign-in-alt"></i> Masuk Sekarang
+                        </button>
+                    </form>
+
+                    <div class="login-footer" style="margin-top: 28px; text-align: center; color: var(--text-light); font-size: 12px;">
+                        <p><i class="fas fa-shield-alt" style="color: var(--accent);"></i> Portal Resmi Perpustakaan Digital BACA GEH!</p>
+                        <p style="margin-top: 6px; font-size: 11px; opacity: 0.85;">Pendaftaran dan pengelolaan akun dilakukan terpusat oleh Master Administrator & Staf Perpustakaan.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="login-right">
+                <div class="hero-image">
+                    <i class="fas fa-book-reader"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MAIN APP ==================== -->
+    <div id="mainApp" class="page">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-small">
+                    <i class="fas fa-book-open"></i>
+                    <span>BACA GEH!</span>
+                </div>
+            </div>
+            <ul class="sidebar-menu">
+                <li class="active" data-tab="dashboard">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </li>
+                <li data-tab="books">
+                    <i class="fas fa-book"></i>
+                    <span>Daftar Buku</span>
+                </li>
+                <li data-tab="borrow">
+                    <i class="fas fa-hand-holding-heart"></i>
+                    <span>Pinjam Buku</span>
+                </li>
+                <li data-tab="verify" id="menuVerify">
+                    <i class="fas fa-clipboard-check"></i>
+                    <span>Verifikasi Pinjam</span>
+                </li>
+                <li data-tab="return" id="menuReturn">
+                    <i class="fas fa-undo-alt"></i>
+                    <span>Pengembalian Buku</span>
+                </li>
+                <li data-tab="members" id="menuMembers">
+                    <i class="fas fa-users-cog"></i>
+                    <span>Kelola Pengguna</span>
+                </li>
+                <li data-tab="history" id="menuHistory">
+                    <i class="fas fa-history"></i>
+                    <span>Laporan & Riwayat</span>
+                </li>
+            </ul>
+            <div class="sidebar-footer">
+                <button id="logoutBtn" class="btn-logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Keluar</span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <h2 id="pageTitle">Dashboard</h2>
+                    <p id="pageSubtitle">Selamat datang di Perpustakaan Digital BACA GEH!</p>
+                </div>
+                <div class="header-right">
+                    <div class="user-info">
+                        <i class="fas fa-user-circle"></i>
+                        <div style="display: flex; flex-direction: column; line-height: 1.2;">
+                            <span id="currentUser" style="font-weight: 600; font-size: 14px;">Admin</span>
+                            <span id="userRoleBadge"
+                                style="font-size: 11px; color: var(--accent); font-weight: 600;">Administrator</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- ================ DASHBOARD ================ -->
+            <section id="dashboard" class="tab-content active">
+                <!-- Welcome Banner -->
+                <div class="welcome-banner">
+                    <h2 style="display: flex; align-items: center; gap: 10px;">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary); flex-shrink: 0;">
+                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                        </svg>
+                        Selamat Datang di BACA GEH!
+                    </h2>
+                    <p>
+                        <span class="highlight">BACA GEH!</span> -
+                        Perpustakaan digital terpercaya penunjang literasi dan wawasan seluruh lapisan masyarakat
+                    </p>
+                    <p style="font-size: 14px; margin-top: 8px; color: var(--text-light);">
+                        <i class="fas fa-clock"></i> Buka Setiap Hari: Layanan Online 24 Jam | Pengambilan Fisik: 08:00
+                        - 16:00 WIB
+                    </p>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="dashboard-with-bg">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon blue">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="totalBooks">0</h3>
+                                <p>Total Buku</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon green">
+                                <i class="fas fa-hand-holding-heart"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="borrowedBooks">0</h3>
+                                <p>Sedang Dipinjam</p>
+                            </div>
+                        </div>
+                        <div class="stat-card" id="cardPendingBox">
+                            <div class="stat-icon orange">
+                                <i class="fas fa-clipboard-check"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="pendingBorrows">0</h3>
+                                <p>Menunggu Verifikasi</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon yellow">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="pendingReturns">0</h3>
+                                <p>Jatuh Tempo</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon purple">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="totalMembers">0</h3>
+                                <p>Total Anggota</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Library Info Cards -->
+                <div class="library-info-grid">
+                    <div class="library-info-card">
+                        <div class="info-icon orange">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <div class="info-text">
+                            <h4>Gedung Perpustakaan</h4>
+                            <p>Lantai 2, Gedung Utama BACA GEH!</p>
+                        </div>
+                    </div>
+                    <div class="library-info-card">
+                        <div class="info-icon blue">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="info-text">
+                            <h4>Jam Operasional</h4>
+                            <p>08:00 - 16:00 WIB</p>
+                        </div>
+                    </div>
+                    <div class="library-info-card">
+                        <div class="info-icon green">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="info-text">
+                            <h4>Kontak Resmi</h4>
+                            <p>(021) 7890-1234</p>
+                        </div>
+                    </div>
+                    <div class="library-info-card">
+                        <div class="info-icon purple">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="info-text">
+                            <h4>Email Pelayanan</h4>
+                            <p>layanan@bacageh.id</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions" style="margin-top: 24px;">
+                    <h3>Aksi Cepat</h3>
+                    <div class="action-buttons">
+                        <button onclick="switchTab('borrow')" class="action-btn">
+                            <i class="fas fa-hand-holding-heart"></i>
+                            <span>Pinjam Buku</span>
+                        </button>
+                        <button onclick="switchTab('return')" class="action-btn" id="qaReturnBtn">
+                            <i class="fas fa-undo-alt"></i>
+                            <span>Pengembalian Buku</span>
+                        </button>
+                        <button onclick="switchTab('books')" class="action-btn">
+                            <i class="fas fa-book"></i>
+                            <span>Lihat Koleksi Buku</span>
+                        </button>
+                        <button onclick="switchTab('verify')" class="action-btn" id="qaVerifyBtn">
+                            <i class="fas fa-clipboard-check"></i>
+                            <span>Verifikasi Pengajuan</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================ BOOKS ================ -->
+            <section id="books" class="tab-content">
+                <div class="section-toolbar">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchBook" placeholder="Cari judul, penulis, atau ISBN...">
+                    </div>
+                    <button class="btn-primary" id="addBookBtn" onclick="showAddBookModal()">
+                        <i class="fas fa-plus"></i> Tambah Buku Baru
+                    </button>
+                </div>
+                <div id="bookList" class="book-grid">
+                    <!-- Daftar buku dari MariaDB akan dirender di sini -->
+                </div>
+                <div id="bookPagination" class="pagination-container"></div>
+            </section>
+
+            <!-- ================ BORROW ================ -->
+            <section id="borrow" class="tab-content">
+                <!-- Notifikasi Konfirmasi Pengajuan -->
+                <div id="borrowConfirmAlert"
+                    style="display: none; background: #ECFDF5; border: 1.5px solid #10B981; color: #065F46; padding: 16px 20px; border-radius: 14px; margin-bottom: 24px; font-size: 14px; box-shadow: var(--shadow);">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <i class="fas fa-check-circle" style="font-size: 24px; color: #10B981;"></i>
+                        <div>
+                            <strong style="font-size: 15px; display: block; margin-bottom: 2px;">Pengajuan Peminjaman
+                                Berhasil Dikirim!</strong>
+                            <span id="borrowConfirmMessage">Pengajuan Anda telah masuk ke sistem dan sedang menunggu
+                                verifikasi oleh Penanggung Jawab Perpustakaan.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="borrow-container">
+                    <div class="borrow-form">
+                        <h3><i class="fas fa-hand-holding-heart"></i> Formulir Pengajuan Peminjaman</h3>
+                        <form id="borrowForm">
+                            <div class="form-group">
+                                <label>Pilih Buku</label>
+                                <select id="borrowBook" required>
+                                    <option value="">-- Pilih Buku Tersedia --</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Identitas Peminjam (Nama Lengkap)</label>
+                                <input type="text" id="borrowerName" placeholder="Nama lengkap peminjam" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Tanggal Pinjam</label>
+                                <input type="date" id="borrowDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Rencana Tanggal Pengembalian</label>
+                                <input type="date" id="returnDate" required>
+                            </div>
+                            <button type="submit" class="btn-primary">
+                                <i class="fas fa-paper-plane"></i> Kirim Pengajuan Peminjaman
+                            </button>
+                        </form>
+                    </div>
+                    <div class="borrow-list">
+                        <h3>Status Peminjaman & Pengajuan Aktif</h3>
+                        <div id="activeBorrows">
+                            <!-- Peminjaman aktif dan pending akan dirender di sini -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================ VERIFY (ADMIN & MASTER) ================ -->
+            <section id="verify" class="tab-content">
+                <div class="return-container">
+                    <h3><i class="fas fa-clipboard-check"></i> Verifikasi Pengajuan Peminjaman</h3>
+                    <p style="color: var(--text-light); margin-bottom: 20px; font-size: 14px;">
+                        Verifikasi pengajuan peminjaman dari masyarakat. Anda dapat menyetujui pengajuan agar statusnya
+                        menjadi aktif, atau menolaknya (stok buku akan otomatis dipulihkan).
+                    </p>
+                    <div id="pendingList">
+                        <!-- Daftar pengajuan pending akan dirender di sini -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================ RETURN ================ -->
+            <section id="return" class="tab-content">
+                <div class="return-container">
+                    <h3><i class="fas fa-undo-alt"></i> Pengembalian Buku</h3>
+                    <p style="color: var(--text-light); margin-bottom: 20px; font-size: 14px;">
+                        Pilih peminjaman aktif yang telah mengembalikan buku fisik ke perpustakaan untuk memulihkan stok
+                        inventaris buku.
+                    </p>
+                    <div id="returnList">
+                        <!-- Buku yang akan dikembalikan akan dirender di sini -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================ KELOLA PENGGUNA (MASTER & ADMIN) ================ -->
+            <section id="members" class="tab-content">
+                <div class="return-container">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px;">
+                        <div>
+                            <h3 style="margin-bottom: 4px;"><i class="fas fa-users-cog"></i> Manajemen & Kelola Akun Pengguna</h3>
+                            <p style="color: var(--text-light); margin: 0; font-size: 14px;">
+                                Kelola akun sistem perpustakaan (Pimpinan, Staf Admin, dan Anggota Masyarakat).
+                            </p>
+                        </div>
+                        <button type="button" class="btn-primary" id="btnOpenAddUser" onclick="showAddUserModal()" style="display: inline-flex; align-items: center; gap: 8px;">
+                            <i class="fas fa-user-plus"></i> Tambah Pengguna Baru
+                        </button>
+                    </div>
+
+                    <!-- Toolbar Pencarian & Filter Peran -->
+                    <div style="display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap;">
+                        <div class="search-box" style="flex: 2; min-width: 220px;">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="searchUser" placeholder="Cari nama lengkap, username, email...">
+                        </div>
+                        <div style="flex: 1; min-width: 180px;">
+                            <select id="filterUserRole" style="width: 100%; height: 100%; padding: 10px 14px; border: 2px solid #E8ECF1; border-radius: 12px; font-family: inherit; font-size: 14px; background: white; color: var(--text-dark);">
+                                <option value="all">Semua Peran (Role)</option>
+                                <option value="master">Master Administrator</option>
+                                <option value="pimpinan">Kepala Perpustakaan</option>
+                                <option value="admin">Penanggung Jawab (Admin)</option>
+                                <option value="tamu">Masyarakat / Pengguna</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="membersList">
+                        <!-- Data pengguna akan dirender di sini -->
+                    </div>
+                    <div id="userPagination" class="pagination-container"></div>
+                </div>
+            </section>
+
+            <!-- ================ HISTORY & REPORTS ================ -->
+            <section id="history" class="tab-content">
+                <div class="history-container">
+                    <h3><i class="fas fa-history"></i> Laporan & Riwayat Seluruh Transaksi</h3>
+                    <p style="color: var(--text-light); margin-bottom: 20px; font-size: 14px;">
+                        Rekapitulasi lengkap status peminjaman, tanggal jatuh tempo, dan tanggal pengembalian buku.
+                    </p>
+                    <div id="historyList">
+                        <!-- Riwayat transaksi akan dirender di sini -->
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- ==================== MODAL TAMBAH BUKU ==================== -->
+    <div id="addBookModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Tambah Buku Baru</h3>
+                <span class="close" onclick="closeModal('addBookModal')">&times;</span>
+            </div>
+            <form id="addBookForm">
+                <div class="form-group">
+                    <label>Judul Buku</label>
+                    <input type="text" id="newBookTitle" placeholder="Masukkan judul buku" required>
+                </div>
+                <div class="form-group">
+                    <label>Penulis</label>
+                    <input type="text" id="newBookAuthor" placeholder="Nama penulis" required>
+                </div>
+                <div class="form-group">
+                    <label>ISBN</label>
+                    <input type="text" id="newBookIsbn" placeholder="Nomor ISBN" required>
+                </div>
+                <div class="form-group">
+                    <label>Jumlah Stok</label>
+                    <input type="number" id="newBookStock" value="1" min="1" required>
+                </div>
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-plus"></i> Tambahkan ke Koleksi
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL EDIT BUKU ==================== -->
+    <div id="editBookModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Data Buku</h3>
+                <span class="close" onclick="closeModal('editBookModal')">&times;</span>
+            </div>
+            <form id="editBookForm">
+                <input type="hidden" id="editBookId">
+                <div class="form-group">
+                    <label>Judul Buku</label>
+                    <input type="text" id="editBookTitle" placeholder="Masukkan judul buku" required>
+                </div>
+                <div class="form-group">
+                    <label>Penulis</label>
+                    <input type="text" id="editBookAuthor" placeholder="Nama penulis" required>
+                </div>
+                <div class="form-group">
+                    <label>ISBN</label>
+                    <input type="text" id="editBookIsbn" placeholder="Nomor ISBN" required>
+                </div>
+                <div class="form-group">
+                    <label>Jumlah Stok Tersedia</label>
+                    <input type="number" id="editBookStock" min="0" required>
+                </div>
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-save"></i> Simpan Perubahan Buku
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL TAMBAH PENGGUNA BARU ==================== -->
+    <div id="addUserModal" class="modal">
+        <div class="modal-content" style="max-width: 540px;">
+            <div class="modal-header">
+                <h3 style="display: flex; align-items: center; gap: 8px;">
+                    <i class="fas fa-user-plus" style="color: var(--accent);"></i> Tambah Pengguna Baru
+                </h3>
+                <span class="close" onclick="closeModal('addUserModal')">&times;</span>
+            </div>
+            <form id="addUserForm">
+                <div class="form-group">
+                    <label>Nama Lengkap <span style="color: #EF4444;">*</span></label>
+                    <input type="text" id="newFullName" placeholder="Masukkan nama lengkap pengguna" required>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                    <div class="form-group">
+                        <label>Username <span style="color: #EF4444;">*</span></label>
+                        <input type="text" id="newUsername" placeholder="Username login" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Kata Sandi Awal <span style="color: #EF4444;">*</span></label>
+                        <input type="password" id="newPassword" placeholder="Kata sandi" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Hak Akses / Peran (Role) <span style="color: #EF4444;">*</span></label>
+                    <select id="newUserRole" required>
+                        <!-- Pilihan peran diisi secara dinamis sesuai hak login (Master / Admin) -->
+                    </select>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                    <div class="form-group">
+                        <label>Email (Opsional)</label>
+                        <input type="email" id="newEmail" placeholder="nama@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Nomor Telepon / WA (Opsional)</label>
+                        <input type="text" id="newTelepon" placeholder="08xxxxxxxxxx">
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%; margin-top: 10px;">
+                    <i class="fas fa-check-circle"></i> Simpan & Buat Akun Pengguna
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL EDIT DATA & RESET SANDI PENGGUNA ==================== -->
+    <div id="editUserModal" class="modal">
+        <div class="modal-content" style="max-width: 540px;">
+            <div class="modal-header">
+                <h3 style="display: flex; align-items: center; gap: 8px;">
+                    <i class="fas fa-user-edit" style="color: var(--accent);"></i> Edit Data Pengguna
+                </h3>
+                <span class="close" onclick="closeModal('editUserModal')">&times;</span>
+            </div>
+            <form id="editUserForm">
+                <input type="hidden" id="editUserId">
+                <div class="form-group">
+                    <label>Username (Permanen)</label>
+                    <input type="text" id="editUsername" readonly style="background: #F1F5F9; color: #64748B; cursor: not-allowed;">
+                </div>
+                <div class="form-group">
+                    <label>Nama Lengkap <span style="color: #EF4444;">*</span></label>
+                    <input type="text" id="editFullName" placeholder="Nama lengkap pengguna" required>
+                </div>
+                <div class="form-group">
+                    <label>Hak Akses / Peran (Role) <span style="color: #EF4444;">*</span></label>
+                    <select id="editUserRole" required>
+                        <!-- Pilihan peran dinamis -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Reset Kata Sandi (Kosongkan jika tidak ingin mengubah)</label>
+                    <input type="password" id="editNewPassword" placeholder="Masukkan sandi baru (opsional)">
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="editEmail" placeholder="nama@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Nomor Telepon / WA</label>
+                        <input type="text" id="editTelepon" placeholder="08xxxxxxxxxx">
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%; margin-top: 10px;">
+                    <i class="fas fa-save"></i> Simpan Perubahan Pengguna
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
